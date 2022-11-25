@@ -37,7 +37,7 @@ incertezaTempoSemPesoQuadradoFinal /= 10
 incertezaTempoComPesoFinal /= 10
 incertezaTempoComPesoQuadradoFinal /= 10
 
-print(f"Tempo médio sem peso e incerteza: {tempoMedioSemPesoFinal}  {incertezaTempoSemPesoFinal}")
-print(f"Tempo médio sem peso ao quadrado e incerteza: {tempoMedioSemPesoQuadrado} {incertezaTempoSemPesoQuadradoFinal}")
-print(f"Tempo médio com peso e incerteza: {tempoMedioComPesoFinal}  {incertezaTempoComPesoFinal}")
-print(f"Tempo médio com peso ao quadrado e incerteza: {tempoMedioComPesoQuadrado} {incertezaTempoComPesoQuadradoFinal}")
+print(f"Tempo médio sem peso e incerteza: {tempoMedioSemPesoFinal} ± {incertezaTempoSemPesoFinal}")
+print(f"Tempo médio sem peso ao quadrado e incerteza: {tempoMedioSemPesoQuadrado} ± {incertezaTempoSemPesoQuadradoFinal}")
+print(f"Tempo médio com peso e incerteza: {tempoMedioComPesoFinal} ± {incertezaTempoComPesoFinal}")
+print(f"Tempo médio com peso ao quadrado e incerteza: {tempoMedioComPesoQuadrado} ± {incertezaTempoComPesoQuadradoFinal}")
