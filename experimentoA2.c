@@ -13,40 +13,85 @@ int main(){
 
     float tempoSemPesoFinal[10] = {2.14280, 2.16565, 2.16330, 2.12995, 2.18985, 2.15090, 2.16955, 2.16385, 2.16675, 2.15490};
     float tempoComPesoFinal[10] = {2.51920, 2.50820, 2.52930, 2.51900, 2.53460, 2.53390, 2.52630, 2.52860, 2.55195, 2.51205};
-    FILE* saida = fopen("saidaFisicaExperimental", "w");
+    // FILE* saida = fopen("saidaFisicaExperimental", "w");
     
-    fprintf(saida, "Primeiro\n");
-    fprintf(saida, "Sem peso\n");
-    calculaTempos(tempoSemPeso1, saida, 1);
+    // fprintf(saida, "Primeiro\n");
+    // fprintf(saida, "Sem peso\n");
+    // calculaTempos(tempoSemPeso1, saida, 1);
 
-    fprintf(saida, "\nCom peso\n");
-    calculaTempos(tempoComPeso1, saida, 1);
-    fprintf(saida, "\nSegundo\n");
-    fprintf(saida, "Sem peso\n");
-    calculaTempos(tempoSemPeso2, saida, 1);
+    // fprintf(saida, "\nCom peso\n");
+    // calculaTempos(tempoComPeso1, saida, 1);
+    // fprintf(saida, "\nSegundo\n");
+    // fprintf(saida, "Sem peso\n");
+    // calculaTempos(tempoSemPeso2, saida, 1);
 
-    fprintf(saida, "\nCom peso\n");
-    calculaTempos(tempoComPeso2, saida, 1);
+    // fprintf(saida, "\nCom peso\n");
+    // calculaTempos(tempoComPeso2, saida, 1);
     
-    fprintf(saida, "\nTerceiro\n");
-    fprintf(saida, "Sem peso\n");
-    calculaTempos(tempoSemPeso3, saida, 1);
+    // fprintf(saida, "\nTerceiro\n");
+    // fprintf(saida, "Sem peso\n");
+    // calculaTempos(tempoSemPeso3, saida, 1);
 
-    fprintf(saida, "\nCom peso\n");
-    calculaTempos(tempoComPeso3, saida, 1);
+    // fprintf(saida, "\nCom peso\n");
+    // calculaTempos(tempoComPeso3, saida, 1);
     
-    fprintf(saida, "\nFinal\n");
-    fprintf(saida, "Sem peso\n");
-    calculaTempos(tempoSemPesoFinal, saida, 1);
+    // fprintf(saida, "\nFinal\n");
+    // fprintf(saida, "Sem peso\n");
+    // calculaTempos(tempoSemPesoFinal, saida, 1);
 
-    fprintf(saida, "\nCom peso\n");
-    calculaTempos(tempoComPesoFinal, saida, 1);
+    // fprintf(saida, "\nCom peso\n");
+    // calculaTempos(tempoComPesoFinal, saida, 1);
 
-    fclose(saida);
-    FILE* tabela3 = fopen("tabela3", "w");
-    fprintf(tabela3, "    primeiro    |   segundo   |   terceiro  |  quarto\n");
-    fprintf(tabela3, "m2a");
-    fclose(tabela3);
+    // fclose(saida);
+    // FILE* tabela3 = fopen("tabela3", "w");
+    // fprintf(tabela3, "    primeiro    |   segundo   |   terceiro  |  quarto\n");
+    // fprintf(tabela3, "m2a");
+    // fclose(tabela3);
+
+    // CALCULANDO m, b e S de acordo com a tabela 3
+    float tempoQuadradoMedioSemPeso[4] = {1.07, 2.26, 3.48, 4.66};
+    float tempoQuadradoMedioComPeso[4] = {1.48, 3.10, 4.76, 6.38};
+
+    float multiplicaXYSemPeso = 0;
+    float somatorioYSemPeso = 0;
+    float somatorioXQuadradoSemPeso = 0;
+    float somatorioXSemPeso = 0;
+
+    float multiplicaXYComPeso = 0;
+    float somatorioYComPeso = 0;
+    float somatorioXQuadradoComPeso = 0;
+    float somatorioXComPeso = 0;
+
+    // x é a distancia e y é o tempoMedioQuadrado
+    for(int i=0; i < 4; i++){
+        // N*xi*yi
+        multiplicaXYSemPeso += 4*(15*(i+1))*tempoQuadradoMedioSemPeso[i];
+        multiplicaXYComPeso += 4*(15*(i+1))*tempoQuadradoMedioComPeso[i];
+        
+        // somatório de yi (multiplica pelo somatório de xi depois)
+        somatorioYSemPeso += tempoQuadradoMedioSemPeso[i];
+        somatorioYComPeso += tempoQuadradoMedioComPeso[i];
+
+        //N*(xi)²
+        somatorioXQuadradoSemPeso += 4*(15*(i+1))*(15*(i+1));
+        somatorioXQuadradoComPeso += 4*(15*(i+1))*(15*(i+1));
+
+        // somatório de xi (eleva ao quadrado depois)
+        somatorioXSemPeso += 15*(i+1);
+        somatorioXComPeso += 15*(i+1);
+    }
+    // multiplica o somatorio de x pelo somatorio de y
+    float segundaParcelaSemPeso = somatorioXSemPeso * somatorioYSemPeso;
+    float segundaParcelaComPeso = somatorioXComPeso * somatorioYComPeso;
+
+    // elevando o somatorio de xi ao quadrado
+    float quartaParcelaSemPeso = somatorioXSemPeso*somatorioXSemPeso;
+    float quartaParcelaComPeso = somatorioXComPeso*somatorioXComPeso;
+
+    // calculando o coeficiente angular de cada gráfico
+    float mSemPeso = (multiplicaXYSemPeso - segundaParcelaSemPeso)/(somatorioXQuadradoSemPeso - quartaParcelaSemPeso);
+    float mComPeso = (multiplicaXYComPeso - segundaParcelaComPeso)/(somatorioXQuadradoComPeso - quartaParcelaComPeso);
+    printf("%.2f %.2f\n", mSemPeso, mComPeso);
 }
 
 void calculaTempos(float* arrayDeTempo, FILE* saida, int opcao){
