@@ -9,6 +9,12 @@ yerror = [0.05, 0.05, 0.05, 0.05]
 # m2a | 1.07 ± 0.02  | 2.26 ± 0.04 | 3.48 ± 0.05 | 4.66 ± 0.05
 # m2b | 1.48 ± 0.02  | 3.10 ± 0.03 | 4.76 ± 0.04 | 6.38 ± 0.05
 
+X = [1.48, 3.10, 4.76, 6.38]
+Y = [15.00, 30.00, 45.00, 60.00]
+
+xerror = [0.02, 0.03, 0.04, 0.05]
+yerror = [0.05, 0.05, 0.05, 0.05]
+
 # solve for a and b
 def best_fit(X, Y):
 
@@ -59,9 +65,9 @@ ax.yaxis.set_major_formatter(mtick.FormatStrFormatter('%.2f'))
 ax.xaxis.set_major_formatter(mtick.FormatStrFormatter('%.2f'))
 
 
-xlabel('t²')
-ylabel('Distância')
-title('Tempo ao quadrado por distância (sem peso)')
+xlabel('t² [s²]')
+ylabel('Distância [cm]')
+title('Tempo ao quadrado por distância (com peso)')
 
 plt.grid()
 
