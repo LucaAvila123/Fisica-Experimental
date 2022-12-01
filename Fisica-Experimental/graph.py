@@ -11,11 +11,11 @@ yerror = [0.05, 0.05, 0.05, 0.05]
 # m2b | 1.48 ± 0.02  | 3.10 ± 0.03 | 4.76 ± 0.04 | 6.38 ± 0.05
 
 # com pesos
-X = [1.48, 3.10, 4.76, 6.38]
-Y = [15.00, 30.00, 45.00, 60.00]
-
-xerror = [0.02, 0.03, 0.04, 0.05]
-yerror = [0.05, 0.05, 0.05, 0.05]
+# X = [1.48, 3.10, 4.76, 6.38]
+# Y = [15.00, 30.00, 45.00, 60.00]
+# 
+# xerror = [0.02, 0.03, 0.04, 0.05]
+# yerror = [0.05, 0.05, 0.05, 0.05]
 
 # solve for a and b
 def best_fit(X, Y):
@@ -32,17 +32,35 @@ def best_fit(X, Y):
 
     print('best fit line:\ny = {:.2f} + {:.2f}x'.format(a, b))
 
+    S = sum([yi**2 for yi in Y]) + sum([xi**2 for xi in X])*b**2 - 2*b*sum([xi*yi for xi,yi in zip(X,Y)]) - 2*a*sum([yi for yi in Y]) + 2*b*a*sum([xi for xi in X]) + len(X)*a**2
+
+    # n = len(X) = len(Y)
+    numer = S*sum([xi**2 for xi in X])
+    denum = (len(X) - 2)*(len(X)*sum([xi**2 for xi in X]) - sum([xi for xi in X])**2)
+
+    da = (numer / denum)**(1/2)
+
+    numer = n*len(X)
+    db = (numer / denum)**(1/2)
+
+    print('errors:\nda = {:.2f}\ndb = {:.2f}\n'.format(da, db)) 
     return a, b
+
+
+
 
 # solution
 a, b = best_fit(X, Y)
 #best fit line:
 #sem peso:
 # distancia = 1.63 + 12.51(t²)
+# da = 0.17
+# db = 0.53
 
 #com peso:
 # distância = 1.47 + 9.17(t²)
-
+# da = 0.14
+# db = 0.39
 
 # plot points and fit line
 import matplotlib.pyplot as plt
